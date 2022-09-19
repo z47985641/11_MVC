@@ -107,7 +107,7 @@ namespace prjMvcDemo.Controllers
         {
             if (id == null)
                 return "是不是在鬧";
-
+              
             (new CCustomerFactry()).delete((int)id);
             return "刪除資料成功";
         }
