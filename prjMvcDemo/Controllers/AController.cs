@@ -20,6 +20,32 @@ namespace prjMvcDemo.Controllers
         {
             return (new CLottoGen()).getNumber();
         }
+        public ActionResult demofrom()
+        {
+            ViewBag.ANS = "?";
+            if (!string.IsNullOrEmpty(Request.Form["txtA"]))
+            {
+                double A = Convert.ToDouble(Request.Form["txtA"]);
+                double B = Convert.ToDouble(Request.Form["txtB"]);
+                double C = Convert.ToDouble(Request.Form["txtC"]);
+                if (B * B - (4 * A * C) < 0)
+                {
+                    ViewBag.ANS = "無解";
+                }
+                else if ((B * B - (4 * A * C)) == 0)
+                {
+                    ViewBag.ANS = (-B + Math.Sqrt((B * B - (4 * A * C)))) / (2 * A);
+                }
+                else
+                {
+                    ViewBag.ANS = (-B + Math.Sqrt((B * B - (4 * A * C)))) / (2 * A) +
+                        "、"
+                        + (-B - Math.Sqrt((B * B - (4 * A * C)))) / (2 * A);
+                }
+
+            }
+            return View();
+        }
 
         public string demoResponse()
         {

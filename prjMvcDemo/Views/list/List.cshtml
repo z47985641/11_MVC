@@ -5,6 +5,9 @@
 
 <h2>客戶一覽表</h2>
 <div>
+    <p>
+        <a href="~/list/New">新增客戶</a>
+    </p>
     <table border="1">
         <tr>
             <td>序</td>
@@ -26,8 +29,11 @@
                     <td>@c.fEmail</td>
                     <td>@c.fAdress</td>
                     <td>@c.fPassword</td>
+                    <td>@Html.ActionLink("刪除","Delete","list",new  { id = c.fid},
+                        new { onclick="return confirm('確定要刪除嗎?')"})</td>
                 </tr>
             }
         }
+        </table>
 </div>
 
