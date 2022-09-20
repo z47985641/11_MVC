@@ -1,0 +1,33 @@
+﻿@model List<prjMvcDemo.Models.CCustomer>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>客戶一覽表</h2>
+<div>
+    <table border="1">
+        <tr>
+            <td>序</td>
+            <td>姓名</td>
+            <td>電話</td>
+            <td>電子郵件</td>
+            <td>地址</td>
+            <td>密碼</td>
+        </tr>
+        @{
+            int count = 0;
+            foreach (prjMvcDemo.Models.CCustomer c in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td>@c.fname</td>
+                    <td>@c.fphone</td>
+                    <td>@c.fEmail</td>
+                    <td>@c.fAdress</td>
+                    <td>@c.fPassword</td>
+                </tr>
+            }
+        }
+</div>
+

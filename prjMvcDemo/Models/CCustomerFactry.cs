@@ -17,27 +17,147 @@ namespace prjMvcDemo.Models
         }
         public void create(CCustomer p)
         {
-            string sql = "INSERT INTO tCustomer (";
-            sql += " fName,";
-            sql += " fPhone,";
-            sql += " fEmail,";
-            sql += " fAdress,";
-            sql += " fPassword";
-            sql += " )VALUES(";
-            sql += " @K_name,";
-            sql += " @K_phone,";
-            sql += " @K_email,";
-            sql += " @K_adress,";
-            sql += " @K_password)";
             List<SqlParameter> paras = new List<SqlParameter>();
+            string sql = "INSERT INTO tCustomer (";
+            if(!string.IsNullOrEmpty(p.fname))
+                sql += " fName,";
+            if (!string.IsNullOrEmpty(p.fphone))
+                sql += " fPhone,";
+            if (!string.IsNullOrEmpty(p.fEmail))
+                sql += " fEmail,";
+            if (!string.IsNullOrEmpty(p.fAdress))
+                sql += " fAdress,";
+            if (!string.IsNullOrEmpty(p.fPassword))
+                sql += " fPassword,";
+            sql = sql.Trim();
+            if (sql.Substring(sql.Length - 1, 1) == ",")
+                sql = sql.Substring(0, sql.Length - 1);
+            sql += " )VALUES(";
+            if (!string.IsNullOrEmpty(p.fname))
+            {
+            sql += " @K_name,"; 
             paras.Add(new SqlParameter("K_name", (object)p.fname));
-            paras.Add(new SqlParameter("K_phone", (object)p.fphone));
-            paras.Add(new SqlParameter("K_email", (object)p.fEmail));
-            paras.Add(new SqlParameter("K_adress", (object)p.fAdress));
-            paras.Add(new SqlParameter("K_password", (object)p.fPassword));
+            }
+                
+            if (!string.IsNullOrEmpty(p.fphone))
+            {
+                sql += " @K_phone,";
+                paras.Add(new SqlParameter("K_phone", (object)p.fphone));
+            }
+            
+            if (!string.IsNullOrEmpty(p.fEmail))
+            {
+                sql += " @K_email,";
+                paras.Add(new SqlParameter("K_email", (object)p.fEmail));
+            }
+            
+            if (!string.IsNullOrEmpty(p.fAdress))
+            {
+                sql += " @K_adress,";
+                paras.Add(new SqlParameter("K_adress", (object)p.fAdress));
+            }
+            
+            if (!string.IsNullOrEmpty(p.fPassword))
+            {
+                sql += " @K_password,";
+                paras.Add(new SqlParameter("K_password", (object)p.fPassword));
+            }
+
+            sql = sql.Trim();
+            if (sql.Substring(sql.Length - 1, 1) == ",")
+                sql = sql.Substring(0, sql.Length - 1) + ")";
 
             executeSql(sql,paras);
 
+        }
+
+        public void update(CCustomer p)
+        {
+            List<SqlParameter> paras = new List<SqlParameter>();
+            string sql = "update tCustomer SET";
+           if (!string.IsNullOrEmpty(p.fname))
+            {
+                sql += " fName = @K_name,";
+                paras.Add(new SqlParameter("K_name", (object)p.fname));
+            }
+
+            if (!string.IsNullOrEmpty(p.fphone))
+            {
+                sql += " fPhone = @K_phone,";
+                paras.Add(new SqlParameter("K_phone", (object)p.fphone));
+            }
+
+            if (!string.IsNullOrEmpty(p.fEmail))
+            {
+                sql += " fEmail = @K_email,";
+                paras.Add(new SqlParameter("K_email", (object)p.fEmail));
+            }
+
+            if (!string.IsNullOrEmpty(p.fAdress))
+            {
+                sql += " fAdress =  @K_adress,";
+                paras.Add(new SqlParameter("K_adress", (object)p.fAdress));
+            }
+
+            if (!string.IsNullOrEmpty(p.fPassword))
+            {
+                sql += " fPassword = @K_password,";
+                paras.Add(new SqlParameter("K_password", (object)p.fPassword));
+            }
+
+            sql = sql.Trim();
+            if (sql.Substring(sql.Length - 1, 1) == ",")
+                sql = sql.Substring(0, sql.Length - 1);
+
+            sql += " WHERE fid = @K_id";
+            paras.Add(new SqlParameter("K_id", (object)p.fid));
+
+            executeSql(sql, paras);
+
+        }
+
+        public CCustomer querybyId(int fid)
+        {
+            string sql = "SELECT * FROM tCustomer WHERE fId = @K_fid";
+            List<SqlParameter> paras = new List<SqlParameter>();
+            paras.Add(new SqlParameter("K_fid", (object)fid));
+            List<CCustomer> list = querybysql(sql, paras);
+            if (list.Count == 0)
+                return null;
+
+            return list[0];
+        }
+        public List<CCustomer> queryALL()
+        {
+            string sql = "  select * from tCustomer";
+            return querybysql(sql, null);
+        }
+
+        private  List<CCustomer> querybysql(string sql, List<SqlParameter> paras)
+        {
+            List<CCustomer> list = new List<CCustomer>();
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = @"Data Source=.;Initial Catalog=dbdemo;Integrated Security=True";
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand(sql, con);
+            if (paras != null)
+                cmd.Parameters.AddRange(paras.ToArray());
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                CCustomer X = new CCustomer();
+                X.fid = (int)reader["fid"];
+                X.fname = reader["fname"].ToString();
+                X.fphone = reader["fphone"].ToString();
+                X.fEmail = reader["fEmail"].ToString();
+                X.fAdress = reader["fAdress"].ToString();
+                X.fPassword = reader["fPassword"].ToString();
+                list.Add(X);
+            }
+            con.Close();
+            return list;
         }
 
         private static void executeSql(string sql,List<SqlParameter> paras)
