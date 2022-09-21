@@ -71,6 +71,17 @@ namespace prjMvcDemo.Models
 
         }
 
+        internal List<CCustomer> queryByKeyword(string Keyword)
+        {
+            string sql = "SELECT * FROM tCustomer WHERE fName LIKE @K_Keyword";
+            sql += " OR fPhone LIKE @K_Keyword";
+            sql += " OR fEmail LIKE @K_Keyword";
+            sql += " OR fAdress LIKE @K_Keyword";
+            List<SqlParameter> paras = new List<SqlParameter>();
+            paras.Add(new SqlParameter("K_Keyword", (object)Keyword));
+            return querybysql(sql, paras);
+        }
+
         public void update(CCustomer p)
         {
             List<SqlParameter> paras = new List<SqlParameter>();

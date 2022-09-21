@@ -1,0 +1,37 @@
+﻿@model prjMvcDemo.Models.CCustomer
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Eddit</h2>
+
+<form method="post" >
+    <div>
+        <input type="hidden" name="fid" value="@Model.fid" />
+        姓名<br />
+        <input type="text" name="fname" value="@Model.fname" />
+    </div>
+    <div>
+        電話<br />
+        <input type="text" name="fphone" value="@Model.fphone"/>
+    </div>
+    <div>
+        Email<br />
+        <input type="text" name="fEmail" value="@Model.fEmail"/>
+    </div>
+    <div>
+        地址<br />
+        <input type="text" name="fAdress" value="@Model.fAdress"/>
+    </div>
+    <div>
+        密碼<br />
+        <input type="text" name="fPassword" value="@Model.fPassword"/>
+    </div>
+    <div>
+        <br />
+        <input type="submit" name="送出並儲存" />
+    </div>
+
+
+</form>

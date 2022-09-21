@@ -12,7 +12,13 @@ namespace prjMvcDemo.Controllers
         // GET: list
         public ActionResult List()
         {
-            List<CCustomer> datas = (new CCustomerFactry()).queryALL();
+            string keyword = Request.Form["txtKeyword"];
+            List<CCustomer> datas = null;
+            if(string.IsNullOrEmpty(keyword))
+                datas = (new CCustomerFactry()).queryALL();
+            else
+                datas = (new CCustomerFactry()).queryByKeyword(keyword);
+
             return View(datas);
         }
         public ActionResult New()
@@ -35,6 +41,23 @@ namespace prjMvcDemo.Controllers
             X.fPassword = Request.Form["txtPassword"];
             (new CCustomerFactry()).create(X);
 
+
+            return RedirectToAction("List");
+        }
+        public ActionResult Edit(int? id)
+        {
+            if (id != null)
+            {
+                CCustomer X =  (new CCustomerFactry()).querybyId((int)id);
+                if (X != null)
+                    return View(X);
+            }
+            return RedirectToAction("List");
+        }
+        [HttpPost]
+        public ActionResult Edit(CCustomer X)
+        {
+           (new CCustomerFactry()).update(X);
 
             return RedirectToAction("List");
         }

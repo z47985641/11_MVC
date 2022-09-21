@@ -1,0 +1,64 @@
+﻿@model IEnumerable<prjMvcDemo.tProduct>
+
+@{
+    ViewBag.Title = "產品列表";
+}
+
+<h2>產品列表</h2>
+
+<p>
+    @Html.ActionLink("建立產品", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            序
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dPrice)
+        </th>
+        <th></th>
+    </tr>
+
+    @{
+        int count = 0;
+        foreach (var item in Model)
+        {
+            count++;
+            <tr>
+                <td>
+                    @count
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fCost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dQty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("編輯", "Edit", new { id = item.fId }) |
+                    @Html.ActionLink("刪除", "Delete",
+                   new { id = item.fId },
+                   new { onclick = "return confirm('確定要刪除嗎?')" })
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+
