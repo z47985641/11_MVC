@@ -6,6 +6,12 @@
 
 <h2>產品列表</h2>
 
+<div>
+    @using (Html.BeginForm())
+    {
+        @:關鍵字 <input type="text" name="txtKeyword" /><input type="submit" value="查詢" />
+    }
+</div>
 <p>
     @Html.ActionLink("建立產品", "Create")
 </p>

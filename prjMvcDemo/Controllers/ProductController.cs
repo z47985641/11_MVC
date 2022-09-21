@@ -11,9 +11,22 @@ namespace prjMvcDemo.Controllers
         // GET: Product
         public ActionResult List()
         {
+
+            string keyword_string = Request.Form["txtKeyword"];
+            int keyword_int = Convert.ToInt32(Request.Form["txtKeyword"]);
+            //造成無法模糊搜尋
             dbdemoEntities db = new dbdemoEntities();
             var datas = from p in db.tProduct
-                        select p; 
+                        select p;
+            if (!string.IsNullOrEmpty(keyword_string))
+            {
+                datas = from p in db.tProduct
+                        where p.fId == keyword_int
+                        || p.fName == keyword_string
+                        || p.fCost == keyword_int
+                        || p.dQty == keyword_int
+                        select p;
+            }
             return View(datas);
         }
         public ActionResult Create()
