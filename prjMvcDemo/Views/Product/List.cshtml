@@ -9,7 +9,7 @@
 <div>
     @using (Html.BeginForm())
     {
-        @:關鍵字 <input type="text" name="txtKeyword" /><input type="submit" value="查詢" />
+        @:關鍵字 @Html.TextBox("txtKeyword","",new { @class = "form=control" })<input type="submit" value="查詢" />
     }
 </div>
 <p>

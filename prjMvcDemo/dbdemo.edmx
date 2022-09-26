@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="dbdemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tCustomer">
+          <Key>
+            <PropertyRef Name="fId" />
+          </Key>
+          <Property Name="fId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fName" Type="nvarchar" MaxLength="50" />
+          <Property Name="fPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="fEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="fAdress" Type="nvarchar" MaxLength="50" />
+          <Property Name="fPassword" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tProduct">
           <Key>
             <PropertyRef Name="fId" />
@@ -16,8 +27,21 @@
           <Property Name="dPrice" Type="money" />
           <Property Name="fImage" Type="image" />
         </EntityType>
+        <EntityType Name="tShoppingCart">
+          <Key>
+            <PropertyRef Name="fId" />
+          </Key>
+          <Property Name="fId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="fCustomer" Type="int" />
+          <Property Name="fProduct" Type="int" />
+          <Property Name="fCount" Type="int" />
+          <Property Name="fPrice" Type="money" />
+        </EntityType>
         <EntityContainer Name="dbdemoModelStoreContainer">
+          <EntitySet Name="tCustomer" EntityType="Self.tCustomer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tProduct" EntityType="Self.tProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tShoppingCart" EntityType="Self.tShoppingCart" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -36,7 +60,31 @@
         </EntityType>
         <EntityContainer Name="dbdemoEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tProduct" EntityType="Self.tProduct" />
+          <EntitySet Name="tCustomer" EntityType="dbdemoModel.tCustomer" />
+          <EntitySet Name="tShoppingCart" EntityType="dbdemoModel.tShoppingCart" />
         </EntityContainer>
+        <EntityType Name="tCustomer">
+          <Key>
+            <PropertyRef Name="fId" />
+          </Key>
+          <Property Name="fId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fAdress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tShoppingCart">
+          <Key>
+            <PropertyRef Name="fId" />
+          </Key>
+          <Property Name="fId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fCustomer" Type="Int32" />
+          <Property Name="fProduct" Type="Int32" />
+          <Property Name="fCount" Type="Int32" />
+          <Property Name="fPrice" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -52,6 +100,30 @@
                 <ScalarProperty Name="dQty" ColumnName="dQty" />
                 <ScalarProperty Name="dPrice" ColumnName="dPrice" />
                 <ScalarProperty Name="fImage" ColumnName="fImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tCustomer">
+            <EntityTypeMapping TypeName="dbdemoModel.tCustomer">
+              <MappingFragment StoreEntitySet="tCustomer">
+                <ScalarProperty Name="fPassword" ColumnName="fPassword" />
+                <ScalarProperty Name="fAdress" ColumnName="fAdress" />
+                <ScalarProperty Name="fEmail" ColumnName="fEmail" />
+                <ScalarProperty Name="fPhone" ColumnName="fPhone" />
+                <ScalarProperty Name="fName" ColumnName="fName" />
+                <ScalarProperty Name="fId" ColumnName="fId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tShoppingCart">
+            <EntityTypeMapping TypeName="dbdemoModel.tShoppingCart">
+              <MappingFragment StoreEntitySet="tShoppingCart">
+                <ScalarProperty Name="fPrice" ColumnName="fPrice" />
+                <ScalarProperty Name="fCount" ColumnName="fCount" />
+                <ScalarProperty Name="fProduct" ColumnName="fProduct" />
+                <ScalarProperty Name="fCustomer" ColumnName="fCustomer" />
+                <ScalarProperty Name="fDate" ColumnName="fDate" />
+                <ScalarProperty Name="fId" ColumnName="fId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

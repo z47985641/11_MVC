@@ -1,4 +1,5 @@
 ﻿using prjMvcDemo.Models;
+using prjMvcDemo.ViewModels;
 using prjXamlDemo.Models;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,32 @@ namespace prjMvcDemo.Controllers
 {
     public class AController : Controller
     {
-
-        public string sayHello()
+        static int count = 0;
+        public ActionResult ShoeIDbyCookie()
+        {
+            int count = 0;
+            HttpCookie x = Request.Cookies["KK"];
+            if (x != null)
+                count = Convert.ToInt32(x.Value);
+            count++;
+            x  = new HttpCookie("KK");
+            x.Value = count.ToString();
+            x.Expires = DateTime.Now.AddSeconds(20);
+            Response.Cookies.Add(x);
+            ViewBag.COUNT = count;
+            return View();
+        }
+        public ActionResult ShoeIDbysestion()
+        {
+            int count = 0;
+            if (Session["COUNT"] != null)
+                count = (int)Session["COUNT"];
+            count++;
+            Session["COUNT"] = count;
+            ViewBag.COUNT = count;
+            return View();
+        }
+            public string sayHello()
         {
             return "hello asp.net";
         }

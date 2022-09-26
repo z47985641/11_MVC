@@ -140,6 +140,8 @@
     <Content Include="dbdemo.edmx.diagram">
       <DependentUpon>dbdemo.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\15Xuan - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\15xuan-15XuanVer2 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -158,6 +160,7 @@
     <Compile Include="Controllers\AController.cs" />
     <Compile Include="Controllers\listController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\ValuesController1.cs" />
     <Compile Include="dbdemo.Context.cs">
       <AutoGen>True</AutoGen>
@@ -180,10 +183,19 @@
     <Compile Include="Models\CCustomer.cs" />
     <Compile Include="Models\CCustomerFactry.cs" />
     <Compile Include="Models\CLottoGen.cs" />
+    <Compile Include="Models\CshoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tCustomer.cs">
+      <DependentUpon>dbdemo.tt</DependentUpon>
+    </Compile>
     <Compile Include="tProduct.cs">
       <DependentUpon>dbdemo.tt</DependentUpon>
     </Compile>
+    <Compile Include="tShoppingCart.cs">
+      <DependentUpon>dbdemo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Acount.cs" />
+    <Compile Include="ViewModels\CAddToCartModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -210,6 +222,12 @@
     <Content Include="Views\Product\List.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\ShoppingCart\List.cshtml" />
+    <Content Include="Views\ShoppingCart\AddToCart.cshtml" />
+    <Content Include="Views\A\ShoeIDbysestion.cshtml" />
+    <Content Include="Views\A\ShoeIDbyCookie.cshtml" />
+    <Content Include="Views\ShoppingCart\AddToSeestion.cshtml" />
+    <Content Include="Views\ShoppingCart\CartView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

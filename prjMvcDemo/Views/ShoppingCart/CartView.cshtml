@@ -1,0 +1,44 @@
+﻿@model IEnumerable<prjMvcDemo.Models.CshoppingCart>
+
+@{
+    ViewBag.Title = "CartView";
+}
+
+<h2>CartView</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.productId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.count)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.productId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.count)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price)
+        </td>
+        <td>
+            @Html.ActionLink("修改數量", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("刪除","Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
